@@ -4,6 +4,11 @@ cd run
 ./stopAll.sh
 cd ..
 
+# Makes sure the source is updated so that any sql scripts are available on the server
+cd src
+git pull
+cd ..
+
 cd scripts
 ./resetDatabase.sh
 ./updateBinaries.sh
