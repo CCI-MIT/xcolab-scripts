@@ -1,0 +1,28 @@
+[Unit]
+Description=View Service - __X__ CoLab
+PartOf=__x__-colab.service
+After=__x__-colab.service
+After=eureka-colab.service
+After=activities-colab.service
+After=admin-colab.service
+After=comment-colab.service
+After=content-colab.service
+After=contest-colab.service
+After=emails-colab.service
+After=members-colab.service
+After=modeling-colab.service
+After=moderation-colab.service
+After=search-colab.service
+After=tracking-colab.service
+
+[Service]
+Restart=on-failure
+RestartSec=1
+User=xcolab
+ExecStartPre=__rootPath__/run/startView.sh
+ExecStart=/usr/bin/java -Xmx4G -Xms1G -XX:-OmitStackTraceInFastThrow -jar __rootPath__/bundle/view/xcolab-view-1.0-SNAPSHOT.war
+#It seems that JVM exits with 143 when receiving SIGTERM
+SuccessExitStatus=143
+
+[Install]
+WantedBy=__x__-colab.service

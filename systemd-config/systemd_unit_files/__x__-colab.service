@@ -1,0 +1,14 @@
+[Unit]
+Description=__X__ CoLab Application
+
+[Service]
+#This program will exit
+Type=oneshot
+#Execute a dummy program
+ExecStart=/bin/true
+#This service should be considered active after start
+RemainAfterExit=yes
+
+[Install]
+#Start at boot time
+WantedBy=multi-user.target
