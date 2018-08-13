@@ -18,9 +18,9 @@ After=tracking-colab.service
 [Service]
 Restart=on-failure
 RestartSec=1
-User=xcolab
+User=__user__
 ExecStartPre=__rootPath__/run/startView.sh
-ExecStart=/usr/bin/java -Xmx4G -Xms1G -XX:-OmitStackTraceInFastThrow -jar __rootPath__/bundle/view/xcolab-view-1.0-SNAPSHOT.war
+ExecStart=/usr/bin/java -Xmx4G -Xms1G -XX:-OmitStackTraceInFastThrow -jar __rootPath__/bundle/view/__user__-view-1.0-SNAPSHOT.war
 #It seems that JVM exits with 143 when receiving SIGTERM
 SuccessExitStatus=143
 

@@ -9,7 +9,7 @@
 
 #= Log configuration
 # LOG_SERVER=log-user@log-host.com
-LOG_SERVER_FOLDER=xcolab
+LOG_SERVER_FOLDER=__user__
 
 
 #= Load external config files id they exist and allow them to override variables

@@ -2,16 +2,22 @@
 
 source __rootPath__/run/config.sh
 
-BINARY_FILE_NAME=eureka-server
-SERVICE_NAME=eureka-colab
-SERVICE_TITLE=Eureka
+# Prefix of the JAR file, e.g. "admin-service"
+BINARY_FILE_NAME=$1
+
+# Name of the Systemd service, e.g. "admin-colab"
+SERVICE_NAME=$2
+
+# Name used in service description. Used for filtering journald in export_log.sh.
+# E.g. "Admin"
+SERVICE_TITLE=$3
 
 echo "#####################################################################################"
-echo "[INFO] Starting Eureka server..."
+echo "[INFO] Starting ${BINARY_FILE_NAME} service..."
 
 # Copy binaries to a deploy directory (making sure it exists)
 mkdir -p ${CLOUD_DEPLOY_DIR}
-cp ${BINARY_SOURCE_DIR}/cloud/${BINARY_FILE_NAME}-1.0-SNAPSHOT.jar ${CLOUD_DEPLOY_DIR}/
+cp ${BINARY_SOURCE_DIR}/services/${BINARY_FILE_NAME}-1.0-SNAPSHOT.jar ${CLOUD_DEPLOY_DIR}/
 
 # Copy logs of previous execution
 OUT_FILE="${BINARY_FILE_NAME}.out"
