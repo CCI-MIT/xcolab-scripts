@@ -23,10 +23,14 @@ The files in this repository allow you to configure your XCoLab application as a
 
 # Useful commands
  * To start/stop the whole application:
-  `systemctl start/stop __x__-colab`
+  `sudo systemctl start/stop __x__-colab`
  * To start/stop an individual service:
   `systemctl status activities-colab`
  * To check the status of every service:
   `systemctl -a status *colab`
  * To check the log of a service:
   `journalctl -u emails-colab`
+ * To enable maintenance mode:
+  `sudo /usr/local/bin/enableMaintenance.sh`
+ * To disable maintenance mode:
+  `sudo /usr/local/bin/disableMaintenance.sh`
