@@ -15,6 +15,7 @@ The files in this repository allow you to configure your XCoLab application as a
  6. Enable the rest of the services with this very short command:
 
 `systemctl enable eureka-colab.service activities-colab.service admin-colab.service comment-colab.service contest-colab.service content-colab.service emails-colab.service members-colab.service modeling-colab.service moderation-colab.service search-colab.service tracking-colab.service view-colab.service`
+
  7. Give privileges to manage this service to the dedicated user. To do that, copy the file `colab-permissions` into /etc/sudoers.d.
 
  If everything went well, you should already be able to manage your services with `systemctl` commands. Be aware that in order to change the state of a systemd service you need super-user privileges, so don't forget to modify your `sudoers` file if you want a specific user to control these daemons.
