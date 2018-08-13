@@ -1,3 +1,6 @@
+__user__ ALL=NOPASSWD: /usr/local/bin/enableMaintenance.sh
+__user__ ALL=NOPASSWD: /usr/local/bin/disableMaintenance.sh
+
 __user__ ALL=NOPASSWD: /usr/bin/systemctl start activities-colab.service
 __user__ ALL=NOPASSWD: /usr/bin/systemctl stop activities-colab.service
 __user__ ALL=NOPASSWD: /usr/bin/systemctl restart activities-colab.service
