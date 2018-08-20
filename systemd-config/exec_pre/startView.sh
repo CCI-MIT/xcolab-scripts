@@ -10,8 +10,8 @@ echo "##########################################################################
 echo "[INFO] Starting ${BINARY_FILE_NAME} service..."
 
 # Copy binaries to a deploy directory (making sure it exists)
-mkdir -p ${CLOUD_DEPLOY_DIR}
-cp ${BINARY_SOURCE_DIR}/view/${BINARY_FILE_NAME}-1.0-SNAPSHOT.jar ${CLOUD_DEPLOY_DIR}/
+mkdir -p ${VIEW_DEPLOY_DIR}
+cp ${BINARY_SOURCE_DIR}/view/${BINARY_FILE_NAME}-1.0-SNAPSHOT.jar ${VIEW_DEPLOY_DIR}/
 
 # Copy logs of previous execution
 OUT_FILE="${BINARY_FILE_NAME}.out"
