@@ -2,7 +2,7 @@
 
 source __rootPath__/run/config.sh
 
-BINARY_FILE_NAME=view-service
+BINARY_FILE_NAME=xcolab-view
 SERVICE_NAME=view-colab
 SERVICE_TITLE=View
 
@@ -11,7 +11,7 @@ echo "[INFO] Starting ${BINARY_FILE_NAME} service..."
 
 # Copy binaries to a deploy directory (making sure it exists)
 mkdir -p ${VIEW_DEPLOY_DIR}
-cp ${BINARY_SOURCE_DIR}/view/${BINARY_FILE_NAME}-1.0-SNAPSHOT.jar ${VIEW_DEPLOY_DIR}/
+cp ${BINARY_SOURCE_DIR}/view/${BINARY_FILE_NAME}-1.0-SNAPSHOT.war ${VIEW_DEPLOY_DIR}/
 
 # Copy logs of previous execution
 OUT_FILE="${BINARY_FILE_NAME}.out"
