@@ -1,0 +1,3 @@
+- src: bertvv.mariadb
+- src: jeffwidman.yum-cron
+- src: geerlingguy.redis

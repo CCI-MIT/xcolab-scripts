@@ -1,0 +1,8 @@
+---
+- name: Create .my.cnf file with database credentials
+  template:
+    src: templates/home_.my.cnf.j2
+    dest: "/home/{{database_home_cnf.for_user}}/.my.cnf"
+    owner: "{{database_home_cnf.for_user}}"
+    group: "{{database_home_cnf.for_user}}"
+  when: database_home_cnf is defined

@@ -1,0 +1,27 @@
+---
+- hosts: xcolab-dev.mit.edu
+  become: yes
+  roles:
+    - role: user
+      vars:
+        users:
+          - user: xcolab
+            keys: []
+        common_keys:
+          - jobachhu.pub
+          - carlosbp.pub
+    - role: basic-install
+    - role: database
+      vars:
+        mariadb_databases:
+          - name: xcolab
+        mariadb_users:
+          - name: xcolab
+            password: "{{ lookup('password', 'credentials/' + inventory_hostname + '/db/users/xcolab.txt') }}"
+            priv: 'xcolab.*:ALL'
+        database_home_cnf:
+          for_user: xcolab
+          database_user: xcolab
+          database_password: "{{ lookup('password', 'credentials/' + inventory_hostname + '/db/users/xcolab.txt') }}"
+          database: xcolab
+#    - role: geerlingguy.redis

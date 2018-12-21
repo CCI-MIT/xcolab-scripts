@@ -1,1 +1,5 @@
 .idea/
+
+# Ansible
+ansible/credentials
+ansible/*.retry

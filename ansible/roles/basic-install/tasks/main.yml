@@ -1,0 +1,29 @@
+---
+# tasks file for basic-install
+- name: Install java8
+  package:
+    name: java-1.8.0-openjdk-devel
+    state: installed
+
+- name: Install bzip2
+  package:
+    name: bzip2
+    state: installed
+
+- name: Install wget
+  package:
+    name: wget
+    state: installed
+
+- name: Install git
+  package:
+    name: git
+    state: installed
+
+- name: Install htop
+  package:
+    name: htop
+    state: installed
+
+- name: Install pv
+  yum: name=https://www.ivarch.com/programs/rpms/pv-1.6.6-1.x86_64.rpm

@@ -1,0 +1,35 @@
+---
+- hosts: pogs-new
+  become: yes
+  roles:
+    - role: user
+      vars:
+        users:
+          - user: pogs
+            keys: []
+        common_keys:
+        - jobachhu.pub
+        - carlosbp.pub
+    - role: basic-install
+    - role: database
+      vars:
+        mariadb_databases:
+          - name: pogs
+        mariadb_users:
+          - name: pogs
+            password: "{{ lookup('password', 'credentials/' + inventory_hostname + '/db/users/pogs.txt') }}"
+            priv: 'pogs.*:ALL'
+        mariadb_custom_cnf:
+          mysqld:
+            max_allowed_packet: 500M
+        database_home_cnf:
+          for_user: pogs
+          database_user: pogs
+          database_password: "{{ lookup('password', 'credentials/' + inventory_hostname + '/db/users/pogs.txt') }}"
+          database: pogs
+        database_backup:
+          database: pogs
+          backup_server: backups@cognosis2.mit.edu
+          snapshot_server: snapshots@cognosis2.mit.edu
+          storage_folder:
+    - role: geerlingguy.redis

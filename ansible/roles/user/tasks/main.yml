@@ -1,0 +1,34 @@
+---
+
+- name: "Create user with auto generated password"
+  user:
+    name: "{{item.user}}"
+    password: "{{ lookup('password', 'credentials/' + inventory_hostname + '/users/' + item.user + '.txt encrypt=md5_crypt') }}"
+  with_items: "{{users}}"
+
+- name: Add ACL rule
+  lineinfile:
+    path: /etc/security/access.conf
+    state: present
+    regexp: '^\+ : {{item.user}} : ALL$'
+    line: '+ : {{item.user}} : ALL'
+    insertbefore: '^- : ALL : ALL$'
+  with_items: "{{users}}"
+
+- name: Add common keys to authorized keys file
+  authorized_key:
+    user: "{{item.0.user}}"
+    state: present
+    key: "{{ lookup('file', 'credentials/keys/' + item.1) }}"
+  with_nested:
+    - "{{users}}"
+    - "{{common_keys}}"
+
+- name: "Add user-specific keys to authorized keys file"
+  authorized_key:
+    user: "{{item.0.user}}"
+    state: present
+    key: "{{ lookup('file', 'credentials/keys/' + item.1) }}"
+  with_subelements:
+    - "{{users}}"
+    - keys

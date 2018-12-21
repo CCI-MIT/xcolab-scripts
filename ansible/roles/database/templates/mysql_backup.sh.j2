@@ -1,0 +1,48 @@
+#!/bin/bash
+
+#== Constants
+local_backup_dir="~/db/backup"
+days_to_keep_local_backup=7
+
+database_name="{{database_backup.database}}"
+
+backups_server={{database_backup.backup_server}}
+snapshot_server={{database_backup.snapshot_server}}
+storage_folder={{database_backup.storage_folder}}
+
+#== Local backup code
+
+# Use the full date and time in filenames to identify the backup
+cur_date="$(date +"%Y-%m-%d_%H-%M-%S")"
+
+# Create local backup
+dump_file=$local_backup_dir/${cur_date}.sql.bz2
+mysqldump $database_name | pv -cN Raw | bzip2 | pv -bcN Compressed > $dump_file
+chmod 600 $dump_file
+
+# Symlink latest local backup
+ln -sfn $dump_file latest_backup.sql.bz2
+
+# Delete old local backups
+find $local_backup_dir -type f -mtime +$days_to_keep_local_backup -exec rm -f {} \;
+
+#== Remote storage of backups
+
+# Copy backup to backup archive
+if ! [ -z ${backup_server+x} ]; then
+	backup_file=${cur_date}_backup.sql.bz2
+	scp $dump_file $backup_server:${storage_folder}/backups/$backup_file
+	ssh $backup_server /bin/bash <<-ENDSSH
+	  ln -sfn $backup_file ${storage_folder}/backups/latest_backup.sql.bz2
+	ENDSSH
+fi
+
+# Copy snapshot to snapshot server
+# TODO: anonymize snapshot
+if ! [ -z ${snapshot_server+x} ]; then
+	snapshot_file=${cur_date}_snapshot.sql.bz2
+	scp $dump_file $snapshot_server:${storage_folder}/$snapshot_file
+	ssh $snapshot_server /bin/bash <<-ENDSSH
+	  ln -sfn $snapshot_file ${storage_folder}/latest_snapshot.sql.bz2
+	ENDSSH
+fi
